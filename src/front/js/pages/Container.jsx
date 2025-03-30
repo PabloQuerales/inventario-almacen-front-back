@@ -1,19 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { Context } from "../store/appContext";
 import Card from "../component/Cards.jsx";
 import Modal from "../component/Modal.jsx";
 import EmptyComponet from "../component/EmptyComponent.jsx";
 
 export default function Container() {
+	const { store, actions } = useContext(Context);
 	const [list, setList] = useState([]);
-
+	useEffect(() => {
+		actions.getItems();
+	}, []);
 	return (
 		<div className="container d-flex flex-column justify-content-center">
 			<div className="row justify-content-center">
-				{list.length > 0 ? (
-					list.map((element) => {
-						return (
-							<Card articulo={element.articulo} cant={element.cant} setList={setList} type={element.type} key={Math.floor(Math.random() * 9999)} />
-						);
+				{store.items.length > 0 ? (
+					store.items.map((element) => {
+						return <Card name={element.name} quantity={element.quantity} type={element.type} key={element.id} />;
 					})
 				) : (
 					<EmptyComponet />

@@ -1,19 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { Context } from "../store/appContext";
 import "../../styles/modal.css";
 
-export default function Modal(props) {
+export default function Modal() {
+	const { actions } = useContext(Context);
 	const [inputValue, setInputValue] = useState({
-		articulo: "",
-		cant: 0,
+		name: "",
+		quantity: 0,
 		type: ""
 	});
 
 	const addItem = () => {
-		if (inputValue.articulo != "" && inputValue.type != "" && inputValue.cant <= 10 && inputValue.cant >= 0) {
-			props.setList([...props.list, inputValue]);
+		console.log(inputValue);
+
+		if (inputValue.name != "" && inputValue.type != "" && inputValue.quantity <= 10 && inputValue.quantity >= 0) {
+			actions.postItems(inputValue);
 			setInputValue({
-				articulo: "",
-				cant: 0,
+				name: "",
+				quantity: 0,
 				type: ""
 			});
 		} else {
@@ -26,7 +30,6 @@ export default function Modal(props) {
 		const { name, value } = e.target;
 		setInputValue({ ...inputValue, [name]: value });
 	};
-
 	return (
 		<>
 			<button type="button" className="add-item btn btn-secondary btn-modal" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -48,7 +51,7 @@ export default function Modal(props) {
 								placeholder="Artículo"
 								value={inputValue.articulo}
 								aria-label="Artículo"
-								name="articulo"
+								name="name"
 								required
 								onChange={handleChange}
 							/>
@@ -58,7 +61,7 @@ export default function Modal(props) {
 								placeholder="Cant."
 								value={inputValue.cant}
 								aria-label="Cant."
-								name="cant"
+								name="quantity"
 								required
 								onChange={handleChange}
 							/>
@@ -72,10 +75,10 @@ export default function Modal(props) {
 								value={inputValue.type}
 								onChange={handleChange}>
 								<option value="">Escoge una categoría</option>
-								<option value="Despensa">Despensa</option>
-								<option value="Aseo">Aseo</option>
-								<option value="Higiene">Higiene</option>
-								<option value="Ocio">Ocio</option>
+								<option value="despensa">Despensa</option>
+								<option value="aseo">Aseo</option>
+								<option value="higiene">Higiene</option>
+								<option value="ocio">Ocio</option>
 							</select>
 						</div>
 						<div className="modal-footer">
