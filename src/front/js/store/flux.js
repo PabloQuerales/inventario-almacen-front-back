@@ -80,6 +80,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 				try {
 					const response = await fetch(`${process.env.BACKEND_URL}/api/add-item`, requestOptions);
 					const result = await response.json();
+					if (response.status === 200) {
+						await getActions().getItems();
+					}
 				} catch (error) {
 					console.error(error);
 				}
@@ -101,6 +104,25 @@ const getState = ({ getStore, getActions, setStore }) => {
 				try {
 					const response = await fetch(`${process.env.BACKEND_URL}/api/edit-item/${id}`, requestOptions);
 					const result = await response.json();
+					if (response.status === 200) {
+						await getActions().getItems();
+					}
+				} catch (error) {
+					console.error(error);
+				}
+			},
+			deleteItem: async (id) => {
+				const requestOptions = {
+					method: "DELETE",
+					redirect: "follow"
+				};
+
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/delete-item/${id}`, requestOptions);
+					const result = await response.json();
+					if (response.status === 200) {
+						await getActions().getItems();
+					}
 				} catch (error) {
 					console.error(error);
 				}

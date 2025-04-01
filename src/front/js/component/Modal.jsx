@@ -11,8 +11,6 @@ export default function Modal() {
 	});
 
 	const addItem = () => {
-		console.log(inputValue);
-
 		if (inputValue.name != "" && inputValue.type != "" && inputValue.quantity <= 10 && inputValue.quantity >= 0) {
 			actions.postItems(inputValue);
 			setInputValue({

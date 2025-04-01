@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { BackendURL } from "./component/backendURL";
 import injectContext from "./store/appContext";
 import Container from "./pages/Container.jsx";
+import MainMenu from "./pages/MainMenu.jsx";
 
 //create your first component
 const Layout = () => {
@@ -16,7 +17,8 @@ const Layout = () => {
 		<div>
 			<BrowserRouter basename={basename}>
 				<Routes>
-					<Route element={<Container />} path="/" />
+					<Route element={<MainMenu />} path="/" />
+					<Route element={<Container />} path="/inventario" />
 					<Route element={<h1>Not found!</h1>} />
 				</Routes>
 			</BrowserRouter>

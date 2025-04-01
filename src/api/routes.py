@@ -38,7 +38,7 @@ def add_item():
         return jsonify({"msg": "Error", "error": str(e)}), 500
 
 @api.route('/edit-item/<int:store_id>', methods=['PUT'])
-def deposit(store_id):
+def edit_item(store_id):
     try:
         body = request.json
         store = db.session.execute(db.select(Store).filter_by(id=store_id)).scalar_one()
@@ -46,5 +46,15 @@ def deposit(store_id):
             store.quantity = body["quantity"]
         db.session.commit()
         return jsonify({"msg": "store updated"}), 200
+    except:
+        return jsonify({"msg": "internal server error"}), 500
+    
+@api.route('/delete-item/<int:store_id>', methods=['DELETE'])
+def delete_item(store_id):
+    try:
+        store = db.session.execute(db.select(Store).filter_by(id=store_id)).scalar_one()
+        db.session.delete(store)
+        db.session.commit()
+        return jsonify({"msg": "item delete"}), 200
     except:
         return jsonify({"msg": "internal server error"}), 500

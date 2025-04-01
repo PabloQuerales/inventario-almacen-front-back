@@ -21,6 +21,9 @@ export default function Card(props) {
 			setCount(count - 1);
 		}
 	};
+	const handleDelete = () => {
+		actions.deleteItem(props.id);
+	};
 
 	useEffect(() => {
 		if (props.type === "despensa") {
@@ -40,6 +43,7 @@ export default function Card(props) {
 
 	return (
 		<div className="card text-center m-1" style={{ width: "12rem" }}>
+			<button type="button" className="btn-close" aria-label="Close" onClick={handleDelete}></button>
 			<div className="card-body p-2">
 				<h5 className="card-title m-0">{props.name}</h5>
 				<p className="m-0">{props.type}</p>
