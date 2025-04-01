@@ -4,6 +4,7 @@ import { BackendURL } from "./component/backendURL";
 import injectContext from "./store/appContext";
 import Container from "./pages/Container.jsx";
 import MainMenu from "./pages/MainMenu.jsx";
+import ShoppingList from "./pages/ShoppingList.jsx";
 
 //create your first component
 const Layout = () => {
@@ -19,7 +20,8 @@ const Layout = () => {
 				<Routes>
 					<Route element={<MainMenu />} path="/" />
 					<Route element={<Container />} path="/inventario" />
-					<Route element={<h1>Not found!</h1>} />
+					<Route element={<ShoppingList />} path="/lista" />
+					<Route element={<h1>Not found!</h1>} path="*" />
 				</Routes>
 			</BrowserRouter>
 		</div>
