@@ -14,7 +14,7 @@ CORS(api)
 @api.route('/get-items', methods=['GET'])
 def get_items():
     try:
-        data = db.session.scalars(db.select(Store)).all()
+        data = db.session.scalars(db.select(Store).order_by(Store.id)).all()
         result = list(map(lambda item: item.serialize(),data))
         if not result:
             return jsonify({"msg":"Empty store"}), 404
@@ -36,3 +36,15 @@ def add_item():
             return jsonify({"msg": "Item it's repeated"}), 404
     except Exception as e:
         return jsonify({"msg": "Error", "error": str(e)}), 500
+
+@api.route('/edit-item/<int:store_id>', methods=['PUT'])
+def deposit(store_id):
+    try:
+        body = request.json
+        store = db.session.execute(db.select(Store).filter_by(id=store_id)).scalar_one()
+        if "quantity" in body:
+            store.quantity = body["quantity"]
+        db.session.commit()
+        return jsonify({"msg": "store updated"}), 200
+    except:
+        return jsonify({"msg": "internal server error"}), 500

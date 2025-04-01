@@ -15,7 +15,7 @@ export default function Container() {
 			<div className="row justify-content-center">
 				{store.items.length > 0 ? (
 					store.items.map((element) => {
-						return <Card name={element.name} quantity={element.quantity} type={element.type} key={element.id} />;
+						return <Card name={element.name} quantity={element.quantity} type={element.type} key={element.id} id={element.id} />;
 					})
 				) : (
 					<EmptyComponet />

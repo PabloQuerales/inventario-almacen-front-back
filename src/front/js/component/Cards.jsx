@@ -7,18 +7,21 @@ import panaderia from "../../img/panaderia.png";
 
 export default function Card(props) {
 	const [typeImg, setTypeImg] = useState("");
-	const { store } = useContext(Context);
+	const { store, actions } = useContext(Context);
 	const [count, setCount] = useState(parseInt(props.quantity));
-	const sum = () => {
+
+	const sum = async () => {
 		if (count < 10) {
 			setCount(count + 1);
 		}
 	};
+
 	const rest = () => {
 		if (count > 0) {
 			setCount(count - 1);
 		}
 	};
+
 	useEffect(() => {
 		if (props.type === "despensa") {
 			setTypeImg(despensa);
@@ -30,6 +33,11 @@ export default function Card(props) {
 			setTypeImg(higiene);
 		}
 	}, [store.items]);
+
+	useEffect(() => {
+		actions.editItem(count, props.id);
+	}, [count]);
+
 	return (
 		<div className="card text-center m-1" style={{ width: "12rem" }}>
 			<div className="card-body p-2">

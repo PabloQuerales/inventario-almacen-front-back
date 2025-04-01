@@ -65,14 +65,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 			postItems: async (newItem) => {
 				const myHeaders = new Headers();
 				myHeaders.append("Content-Type", "application/json");
-				console.log(newItem);
-
 				const raw = JSON.stringify({
 					name: newItem.name,
 					quantity: parseInt(newItem.quantity),
 					type: newItem.type
 				});
-
 				const requestOptions = {
 					method: "POST",
 					headers: myHeaders,
@@ -83,7 +80,27 @@ const getState = ({ getStore, getActions, setStore }) => {
 				try {
 					const response = await fetch(`${process.env.BACKEND_URL}/api/add-item`, requestOptions);
 					const result = await response.json();
-					console.log(result);
+				} catch (error) {
+					console.error(error);
+				}
+			},
+			editItem: async (quantity, id) => {
+				const myHeaders = new Headers();
+				myHeaders.append("Content-Type", "application/json");
+
+				const raw = JSON.stringify({
+					quantity: quantity
+				});
+
+				const requestOptions = {
+					method: "PUT",
+					headers: myHeaders,
+					body: raw,
+					redirect: "follow"
+				};
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/edit-item/${id}`, requestOptions);
+					const result = await response.json();
 				} catch (error) {
 					console.error(error);
 				}
