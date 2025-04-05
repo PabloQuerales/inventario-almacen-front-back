@@ -1,81 +1,83 @@
-# WebApp boilerplate with React JS and Flask API
+# 🗃️ Inventario de Almacén
 
-Build web applications using React.js for the front end and python/flask for your backend API.
+Aplicación web **Full Stack** para llevar el control del inventario de alimentos del hogar. Permite agregar productos, visualizar cantidades disponibles, actualizar y eliminar ítems. Una herramienta sencilla y últil para mantener organizada tu despensa.
 
-- Documentation can be found here: https://start.4geeksacademy.com/starters/react-flask
-- Here is a video on [how to use this template](https://www.loom.com/share/f37c6838b3f1496c95111e515e83dd9b)
-- Integrated with Pipenv for package managing.
-- Fast deployment to heroku [in just a few steps here](https://start.4geeksacademy.com/backend/deploy-heroku-posgres).
-- Use of .env file.
-- SQLAlchemy integration for database abstraction.
+## 🌐 Demo
 
-### 1) Installation:
+> Puedes ver una demostración del proyecto en este [video corto](https://drive.google.com/file/d/1fwVAFXpa2vehEW6SLr7Ag3Zkcvjiwl2t/view?usp=drive_link)
 
-> If you use Github Codespaces (recommended) or Gitpod this template will already come with Python, Node and the Posgres Database installed. If you are working locally make sure to install Python 3.10, Node 
+## 🚀 Tecnologías utilizadas
 
-It is recomended to install the backend first, make sure you have Python 3.8, Pipenv and a database engine (Posgress recomended)
+- **Frontend:** React.js, React Router, Bootstrap
+- **Backend:** Flask (Python), Flask-RESTful, Flask-CORS
+- **Base de datos:** PostgreSQL
+- **ORM:** SQLAlchemy
 
-1. Install the python packages: `$ pipenv install`
-2. Create a .env file based on the .env.example: `$ cp .env.example .env`
-3. Install your database engine and create your database, depending on your database you have to create a DATABASE_URL variable with one of the possible values, make sure you replace the valudes with your database information:
+## ⚙️ Funcionalidades principales
 
-| Engine    | DATABASE_URL                                        |
-| --------- | --------------------------------------------------- |
-| SQLite    | sqlite:////test.db                                  |
-| MySQL     | mysql://username:password@localhost:port/example    |
-| Postgress | postgres://username:password@localhost:5432/example |
+- 📟 Crear, leer, actualizar y eliminar productos del inventario (CRUD).
+- 📦 Registro de nombre, categoría y cantidad de productos.
+- 📊 Vista general del estado del almacén.
+- 🔍 Visualización de productos por sección o tipo (categorías).
+- ✅ Interfaz intuitiva, pensada para el uso cotidiano.
 
-4. Migrate the migrations: `$ pipenv run migrate` (skip if you have not made changes to the models on the `./src/api/models.py`)
-5. Run the migrations: `$ pipenv run upgrade`
-6. Run the application: `$ pipenv run start`
+## 🛠️ Instalación local
 
-> Note: Codespaces users can connect to psql by typing: `psql -h localhost -U gitpod example`
+### 🔙 Backend
 
-### Undo a migration
+1. Ve al directorio del backend:
 
-You are also able to undo a migration by running
-
-```sh
-$ pipenv run downgrade
+```bash
+cd backend
 ```
 
-### Backend Populate Table Users
+2. Instala las dependencias:
 
-To insert test users in the database execute the following command:
-
-```sh
-$ flask insert-test-users 5
+```bash
+pip install -r requirements.txt
 ```
 
-And you will see the following message:
+3. Ejecuta la app:
 
-```
-  Creating test users
-  test_user1@test.com created.
-  test_user2@test.com created.
-  test_user3@test.com created.
-  test_user4@test.com created.
-  test_user5@test.com created.
-  Users created successfully!
+```bash
+python app.py
 ```
 
-### **Important note for the database and the data inside it**
+> Asegúrate de tener PostgreSQL corriendo y correctamente configurado.
 
-Every Github codespace environment will have **its own database**, so if you're working with more people eveyone will have a different database and different records inside it. This data **will be lost**, so don't spend too much time manually creating records for testing, instead, you can automate adding records to your database by editing ```commands.py``` file inside ```/src/api``` folder. Edit line 32 function ```insert_test_data``` to insert the data according to your model (use the function ```insert_test_users``` above as an example). Then, all you need to do is run ```pipenv run insert-test-data```.
+---
 
-### Front-End Manual Installation:
+### 🖜️ Frontend
 
--   Make sure you are using node version 14+ and that you have already successfully installed and runned the backend.
+1. Ve al directorio del frontend:
 
-1. Install the packages: `$ npm install`
-2. Start coding! start the webpack dev server `$ npm run start`
+```bash
+cd frontend
+```
 
-## Publish your website!
+2. Instala las dependencias:
 
-This boilerplate it's 100% read to deploy with Render.com and Heroku in a matter of minutes. Please read the [official documentation about it](https://start.4geeksacademy.com/deploy).
+```bash
+npm install
+```
 
-### Contributors
+3. Ejecuta la app:
 
-This template was built as part of the 4Geeks Academy [Coding Bootcamp](https://4geeksacademy.com/us/coding-bootcamp) by [Alejandro Sanchez](https://twitter.com/alesanchezr) and many other contributors. Find out more about our [Full Stack Developer Course](https://4geeksacademy.com/us/coding-bootcamps/part-time-full-stack-developer), and [Data Science Bootcamp](https://4geeksacademy.com/us/coding-bootcamps/datascience-machine-learning).
+```bash
+npm run start
+```
 
-You can find other templates and resources like this at the [school github page](https://github.com/4geeksacademy/).
+---
+
+## 📌 Autor
+
+Desarrollado por [**Pablo Querales**](https://www.linkedin.com/in/pabloquerales)
+
+GitHub: [@PabloQuerales](https://github.com/PabloQuerales)  
+Email: [pabloquerales20@gmail.com](mailto:pabloquerales20@gmail.com)
+
+---
+
+## 💡 Notas finales
+
+Este proyecto fue desarrollado como iniciativa personal para organizar el inventario mensual del hogar. Ideal para quienes quieren evitar compras innecesarias o duplicadas y aprovechar mejor lo que ya tienen en casa.
