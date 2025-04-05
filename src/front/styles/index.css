@@ -1,3 +1,90 @@
 /* 
     General Styles used on every website (Don't Repeat Yourself)
 */
+:root {
+	--color-principal: #5d6d7e; /* Gris azulado suave */
+	--color-secundario: #f39c12; /* Amarillo mostaza */
+	--color-hover: #e67e22; /* Naranja cálido para hover */
+	--color-fondo: #ecf0f1; /* Fondo gris claro */
+	--color-boton: #34495e; /* Gris oscuro para los botones */
+	--color-blanco: #ffffff; /* Blanco puro */
+	--color-boton-hover: #e67e22; /* Color para hover */
+}
+
+body {
+	background-color: var(--color-blanco); /* Fondo blanco para toda la app */
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+/* Estilos comunes para contenedores */
+.container {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 20px;
+}
+
+/* Botones generales */
+.btn-main {
+	background-color: var(--color-boton);
+	color: white;
+	border: none;
+	border-radius: 8px;
+	padding: 15px 30px;
+	font-size: 16px;
+	cursor: pointer;
+	margin: 10px;
+	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+	transition: all 0.3s ease;
+}
+
+.btn-main:hover {
+	background-color: var(--color-hover);
+	transform: translateY(-3px);
+	box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-main:focus {
+	outline: none;
+}
+
+/* Para los Cards */
+.card {
+	background-color: #ffffff;
+	border-radius: 8px;
+	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+	margin: 10px;
+	padding: 15px;
+	transition: all 0.3s ease;
+}
+
+.card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Modal */
+.modal-content {
+	background-color: #ffffff;
+	border-radius: 8px;
+	padding: 20px;
+}
+
+/* Component Empty */
+.empty-component {
+	text-align: center;
+	color: var(--color-principal);
+	font-size: 18px;
+}
+
+@media (max-width: 768px) {
+	.btn-main {
+		font-size: 14px;
+		padding: 12px 25px;
+	}
+
+	.container {
+		padding: 10px;
+	}
+}

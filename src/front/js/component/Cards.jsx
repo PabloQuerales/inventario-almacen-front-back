@@ -4,6 +4,7 @@ import despensa from "../../img/despensa.png";
 import higiene from "../../img/higiene-personal.png";
 import limpieza from "../../img/limpieza.png";
 import panaderia from "../../img/panaderia.png";
+import "../../styles/card.css";
 
 export default function Card(props) {
 	const [typeImg, setTypeImg] = useState("");

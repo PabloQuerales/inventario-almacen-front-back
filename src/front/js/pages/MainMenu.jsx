@@ -1,13 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
+import "../../styles/MainMenu.css";
 export default function MainMenu() {
 	const navigate = useNavigate();
 	return (
-		<div>
+		<div className="main-menu">
 			<button
 				type="button"
-				className="btn btn-secondary btn-modal"
+				className="btn-main"
 				onClick={() => {
 					navigate("/inventario");
 				}}>
@@ -15,7 +15,7 @@ export default function MainMenu() {
 			</button>
 			<button
 				type="button"
-				className="btn btn-secondary btn-modal"
+				className="btn-main"
 				onClick={() => {
 					navigate("/lista");
 				}}>

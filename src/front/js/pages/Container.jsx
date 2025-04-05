@@ -7,9 +7,11 @@ import EmptyComponet from "../component/EmptyComponent.jsx";
 export default function Container() {
 	const { store, actions } = useContext(Context);
 	const [list, setList] = useState([]);
+
 	useEffect(() => {
 		actions.getItems();
 	}, []);
+
 	return (
 		<div className="container d-flex flex-column justify-content-center">
 			<div className="row justify-content-center">

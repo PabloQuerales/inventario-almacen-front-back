@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
-import "../../styles/modal.css";
+import "../../styles/modal.css"; // Asegúrate de importar el archivo CSS
 
 export default function Modal() {
 	const { actions } = useContext(Context);
@@ -11,7 +11,7 @@ export default function Modal() {
 	});
 
 	const addItem = () => {
-		if (inputValue.name != "" && inputValue.type != "" && inputValue.quantity <= 10 && inputValue.quantity >= 0) {
+		if (inputValue.name !== "" && inputValue.type !== "" && inputValue.quantity <= 10 && inputValue.quantity >= 0) {
 			actions.postItems(inputValue);
 			setInputValue({
 				name: "",
@@ -24,15 +24,20 @@ export default function Modal() {
 			);
 		}
 	};
+
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 		setInputValue({ ...inputValue, [name]: value });
 	};
+
 	return (
 		<>
+			{/* Botón para abrir el modal */}
 			<button type="button" className="add-item btn btn-secondary btn-modal" data-bs-toggle="modal" data-bs-target="#exampleModal">
 				<i className="bi bi-plus-lg"></i>
 			</button>
+
+			{/* Modal */}
 			<div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div className="modal-dialog">
 					<div className="modal-content">
@@ -42,31 +47,33 @@ export default function Modal() {
 							</h1>
 							<button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 						</div>
+
 						<div className="modal-body d-flex gap-5">
 							<input
 								type="text"
 								className="form-control"
 								placeholder="Artículo"
-								value={inputValue.articulo}
+								value={inputValue.name}
 								aria-label="Artículo"
 								name="name"
 								required
 								onChange={handleChange}
 							/>
 							<input
-								type="text"
+								type="number"
 								className="form-control w-25"
 								placeholder="Cant."
-								value={inputValue.cant}
+								value={inputValue.quantity}
 								aria-label="Cant."
 								name="quantity"
 								required
 								onChange={handleChange}
 							/>
 						</div>
+
 						<div className="px-5 pb-3">
 							<select
-								className="form-select mr-5 "
+								className="form-select mr-5"
 								aria-label="Default select example"
 								name="type"
 								required
@@ -79,12 +86,13 @@ export default function Modal() {
 								<option value="ocio">Ocio</option>
 							</select>
 						</div>
+
 						<div className="modal-footer">
-							<button type="button" className="btn btn-danger" data-bs-dismiss="modal">
-								Cancelar
-							</button>
 							<button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={addItem}>
 								Agregar
+							</button>
+							<button type="button" className="btn btn-danger" data-bs-dismiss="modal">
+								Cancelar
 							</button>
 						</div>
 					</div>
