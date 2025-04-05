@@ -3,10 +3,12 @@ import { Context } from "../store/appContext";
 import Card from "../component/Cards.jsx";
 import Modal from "../component/Modal.jsx";
 import EmptyComponet from "../component/EmptyComponent.jsx";
+import { useNavigate } from "react-router-dom";
 
 export default function Container() {
 	const { store, actions } = useContext(Context);
 	const [list, setList] = useState([]);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		actions.getItems();
@@ -22,8 +24,16 @@ export default function Container() {
 				) : (
 					<EmptyComponet />
 				)}
+				<button
+					type="button"
+					className="btn-item home btn btn-secondary btn-modal"
+					onClick={() => {
+						navigate("/");
+					}}>
+					<i class="bi bi-house"></i>
+				</button>
 			</div>
-			<Modal setList={setList} list={list} />
+			<Modal />
 		</div>
 	);
 }

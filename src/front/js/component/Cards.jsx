@@ -5,6 +5,7 @@ import higiene from "../../img/higiene-personal.png";
 import limpieza from "../../img/limpieza.png";
 import panaderia from "../../img/panaderia.png";
 import "../../styles/card.css";
+import Swal from "sweetalert2";
 
 export default function Card(props) {
 	const [typeImg, setTypeImg] = useState("");
@@ -23,7 +24,21 @@ export default function Card(props) {
 		}
 	};
 	const handleDelete = () => {
-		actions.deleteItem(props.id);
+		Swal.fire({
+			title: "Seguro de eliminar este artículo de tu inventario?",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonText: "Si, eliminar"
+		}).then((result) => {
+			if (result.isConfirmed) {
+				Swal.fire({
+					title: "Eliminado",
+					text: "Hemos actualizado tu inventario.",
+					icon: "success"
+				});
+				actions.deleteItem(props.id);
+			}
+		});
 	};
 
 	useEffect(() => {

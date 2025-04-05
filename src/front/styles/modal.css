@@ -45,7 +45,7 @@
 }
 
 .btn-danger {
-	background-color: #e74c3c; /* Rojo */
+	background-color: var(--color-principal);
 }
 
 .btn-primary {
@@ -60,24 +60,7 @@
 	background-color: #e67e22;
 }
 
-.add-item {
-	transition: background-color 0.3s ease, transform 0.3s ease;
-	position: fixed;
-	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-	bottom: 20px;
+.add {
 	right: 20px;
-	background-color: var(--color-secundario);
-	color: black;
-	border: none;
-	width: 60px;
-	height: 60px;
-	border-radius: 25%;
-	font-size: 2rem;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-.add-item:hover {
-	background-color: var(--color-hover);
-	transform: scale(1.1);
+	bottom: 20px;
 }

@@ -28,10 +28,40 @@
 .btn-main:focus {
 	outline: none;
 }
-
+.btn-item {
+	transition: background-color 0.3s ease, transform 0.3s ease;
+	position: fixed;
+	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+	background-color: var(--color-secundario);
+	color: black;
+	border: none;
+	width: 60px;
+	height: 60px;
+	border-radius: 25%;
+	font-size: 2rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.btn-item:hover {
+	background-color: var(--color-hover);
+	transform: scale(1.1);
+}
+.home {
+	left: 20px;
+	bottom: 20px;
+}
+.title {
+	color: var(--color-secundario);
+	font-weight: bold;
+	font-size: 3rem;
+}
 @media (max-width: 768px) {
 	.btn-main {
 		font-size: 14px;
 		padding: 12px 25px;
+	}
+	.title {
+		font-size: 1.5rem;
 	}
 }
