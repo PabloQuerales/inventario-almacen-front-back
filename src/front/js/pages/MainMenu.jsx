@@ -14,14 +14,6 @@ export default function MainMenu() {
 				}}>
 				Ver Inventario
 			</button>
-			<button
-				type="button"
-				className="btn-main"
-				onClick={() => {
-					navigate("/lista");
-				}}>
-				Ver Lista de compras
-			</button>
 		</div>
 	);
 }
