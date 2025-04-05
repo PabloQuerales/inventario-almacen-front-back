@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
-import "../../styles/modal.css"; // Asegúrate de importar el archivo CSS
+import "../../styles/modal.css";
+import Swal from "sweetalert2";
 
 export default function Modal() {
 	const { actions } = useContext(Context);
@@ -11,7 +12,7 @@ export default function Modal() {
 	});
 
 	const addItem = () => {
-		if (inputValue.name !== "" && inputValue.type !== "" && inputValue.quantity <= 10 && inputValue.quantity >= 0) {
+		if (inputValue.name !== "" && inputValue.type !== "" && inputValue.quantity >= 0) {
 			actions.postItems(inputValue);
 			setInputValue({
 				name: "",
@@ -19,9 +20,11 @@ export default function Modal() {
 				type: ""
 			});
 		} else {
-			alert(
-				"------------------------INFORMACIÓN INCOMPLETA-------------------- RECUERDA ESCRIBIR UN NOMBRE, ESCOGER UN TIPO E INTRODUCIR UNA CANTIDAD DE MAXIMO 10 UNIDADES"
-			);
+			Swal.fire({
+				title: "Campos incompletos",
+				text: "Por favor revisa todos los campos antes de agregar un artículo y no intentes agregar número negativos",
+				icon: "warning"
+			});
 		}
 	};
 
@@ -32,12 +35,9 @@ export default function Modal() {
 
 	return (
 		<>
-			{/* Botón para abrir el modal */}
-			<button type="button" className="add-item btn btn-secondary btn-modal" data-bs-toggle="modal" data-bs-target="#exampleModal">
+			<button type="button" className="btn-item add btn btn-secondary btn-modal" data-bs-toggle="modal" data-bs-target="#exampleModal">
 				<i className="bi bi-plus-lg"></i>
 			</button>
-
-			{/* Modal */}
 			<div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div className="modal-dialog">
 					<div className="modal-content">

@@ -5,6 +5,7 @@ export default function MainMenu() {
 	const navigate = useNavigate();
 	return (
 		<div className="main-menu">
+			<h1 className="title">INVENTARIO DE COMPRAS</h1>
 			<button
 				type="button"
 				className="btn-main"
