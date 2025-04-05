@@ -32,7 +32,6 @@
 	transition: background-color 0.3s ease, transform 0.3s ease;
 	position: fixed;
 	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-	bottom: 20px;
 	background-color: var(--color-secundario);
 	color: black;
 	border: none;
@@ -50,6 +49,7 @@
 }
 .home {
 	left: 20px;
+	bottom: 20px;
 }
 .title {
 	color: var(--color-secundario);
