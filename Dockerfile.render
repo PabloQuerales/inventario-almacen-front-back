@@ -1,23 +1,26 @@
 FROM node:16
 
-# Instalamos python3.10, pip y pipenv
+# Instalamos Python 3.10 y pip
 RUN apt update \
-    && apt install -y python3.10 python3-pip \
-    && pip3 install --upgrade pip \
-    && pip3 install pipenv  # Instalamos pipenv globalmente
+    && apt install -y python3.10 python3-pip
 
 # Establecemos el directorio de trabajo
 WORKDIR /opt/app
 
-# Copiamos los archivos necesarios
+# Copiamos los archivos del proyecto
 COPY . /app/
 
-# Instalamos las dependencias de pipenv en la fase de construcción
-RUN pipenv install --deploy --ignore-pipfile  # Esto instalará las dependencias
+# Creamos un entorno virtual y activamos el entorno
+RUN python3 -m venv /opt/app/venv
 
-# Aseguramos que pipenv esté disponible en el PATH
-ENV PATH="/opt/app/.venv/bin:$PATH"
+# Instalamos las dependencias del archivo requirements.txt
+RUN /opt/app/venv/bin/pip install -r /app/requirements.txt  # Asegúrate de tener el archivo requirements.txt
+
+# Aseguramos que el entorno virtual esté disponible en el PATH
+ENV PATH="/opt/app/venv/bin:$PATH"
+
+# Establecemos NODE_ENV para contenedores
 ENV NODE_ENV=container
 
-# Fase de release (si es necesario, copia otros archivos de configuración)
-COPY --from=build /opt/app
+# Fase de release (si es necesario, copiamos otros archivos de configuración)
+COPY --from=build /opt/app/venv /venv
