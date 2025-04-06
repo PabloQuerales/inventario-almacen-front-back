@@ -1,15 +1,22 @@
 FROM node:16
 
+# Actualizamos el sistema, instalamos Python 3.10 y pip
 RUN apt update \
-    && apt install software-properties-common \
+    && apt install -y software-properties-common \
     && add-apt-repository ppa:deadsnakes/ppa \
     && apt update \
-    && apt install python3.10
-    && pip install pipenv  # Aquí agregas el comando para instalar pipenv
+    && apt install -y python3.10 python3-pip \
+    && pip3 install pipenv  # Instalamos pipenv
 
-
+# Establecemos el directorio de trabajo
 WORKDIR /opt/app
+
+# Copiamos los archivos necesarios
 COPY --from=build /opt/app/venv /venv
 
+# Aseguramos que pipenv esté disponible en el PATH
 ENV PATH="/opt/app/venv/bin:$PATH"
 ENV NODE_ENV=container
+
+# Instalamos las dependencias del proyecto usando pipenv
+RUN pipenv install --deploy --ignore-pipfile  # Instala las dependencias directamente
