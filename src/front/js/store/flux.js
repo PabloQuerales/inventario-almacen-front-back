@@ -25,7 +25,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			getMessage: async () => {
 				try {
 					// fetching data from the backend
-					const resp = await fetch(process.env.BACKEND_URL + "/api/hello");
+					const resp = await fetch(process.env.REACT_APP_BACKEND_URL + "/api/hello");
 					const data = await resp.json();
 					setStore({ message: data.message });
 					// don't forget to return something, that is how the async resolves
@@ -55,7 +55,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				};
 
 				try {
-					const response = await fetch(`${process.env.BACKEND_URL}/api/get-items`, requestOptions);
+					const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/get-items`, requestOptions);
 					const result = await response.json();
 					setStore({ items: result });
 				} catch (error) {
@@ -78,7 +78,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				};
 
 				try {
-					const response = await fetch(`${process.env.BACKEND_URL}/api/add-item`, requestOptions);
+					const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/add-item`, requestOptions);
 					const result = await response.json();
 					if (response.status === 200) {
 						await getActions().getItems();
@@ -102,7 +102,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					redirect: "follow"
 				};
 				try {
-					const response = await fetch(`${process.env.BACKEND_URL}/api/edit-item/${id}`, requestOptions);
+					const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/edit-item/${id}`, requestOptions);
 					const result = await response.json();
 					if (response.status === 200) {
 						await getActions().getItems();
@@ -118,7 +118,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				};
 
 				try {
-					const response = await fetch(`${process.env.BACKEND_URL}/api/delete-item/${id}`, requestOptions);
+					const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/delete-item/${id}`, requestOptions);
 					const result = await response.json();
 					if (response.status === 200) {
 						await getActions().getItems();
