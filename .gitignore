@@ -67,7 +67,7 @@ dist/*
 !public/
 !public/*
 
-# ignore the dist directory were our bundle files are going to be
+# ignore the dist directory where our bundle files are going to be
 !.gitkeep
 !.htaccess
 !.eslintrc
@@ -80,3 +80,6 @@ database.database
 database.db
 diagram.png
 __pycache__/
+
+# ignore .env file (add this to avoid uploading to GitHub)
+.env
