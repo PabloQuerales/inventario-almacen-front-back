@@ -5,6 +5,8 @@ RUN apt update \
     && add-apt-repository ppa:deadsnakes/ppa \
     && apt update \
     && apt install python3.10
+    && pip install pipenv  # Aquí agregas el comando para instalar pipenv
+
 
 WORKDIR /opt/app
 COPY --from=build /opt/app/venv /venv
