@@ -12,11 +12,17 @@ WORKDIR /opt/app
 COPY . /opt/app
 RUN npm install  # o el comando que uses para instalar tus dependencias de Node.js
 
+# Instalamos gunicorn para el servidor WSGI en Python
+RUN pip3 install gunicorn
+
 # Etapa final: Preparar la imagen con los archivos del entorno de Python
 FROM node:16
 
 # Copiamos los archivos de la etapa de construcción
 COPY --from=build /opt/app /opt/app
+
+# Instalamos gunicorn en la imagen final
+RUN pip3 install gunicorn
 
 # Configuramos el directorio de trabajo
 WORKDIR /opt/app
@@ -24,8 +30,7 @@ WORKDIR /opt/app
 # Establecemos las variables de entorno
 ENV NODE_ENV=container
 
-# Si no estás usando un entorno virtual (venv), omite la siguiente línea
-# Si lo tienes, asegúrate de que se copie correctamente
-# COPY --from=build /opt/app/venv /venv
-
 # Otros comandos de configuración que puedas necesitar...
+
+# Comando para ejecutar la aplicación Flask con gunicorn
+CMD ["gunicorn", "-b", "0.0.0.0:8000", "app:app"]
