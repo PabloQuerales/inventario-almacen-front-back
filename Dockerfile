@@ -1,6 +1,9 @@
 # Etapa de construcción
 FROM node:16 AS build
 
+# Deshabilitar la interfaz interactiva de debconf para evitar errores
+ENV DEBIAN_FRONTEND=noninteractive
+
 # Instalamos dependencias de Python
 RUN apt update \
     && apt install -y software-properties-common \
