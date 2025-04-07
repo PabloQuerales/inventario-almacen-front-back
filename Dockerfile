@@ -1,32 +1,39 @@
-# Etapa de construcción (build stage)
-FROM python:3.10-slim AS build
+# Fase de construcción
+FROM node:16 as build
 
-# Instalamos las dependencias necesarias
-RUN apt update && apt install -y nodejs npm
+# Instalamos Python 3.10 y pip
+RUN apt update \
+    && apt install -y python3.10 python3-pip
 
+# Instalamos pipenv
+RUN /opt/app/venv/bin/pip install pipenv
+
+# Establecemos el directorio de trabajo
 WORKDIR /opt/app
-COPY . /app/
 
-# Creamos un entorno virtual y lo activamos
+# Copiamos los archivos de configuración (Pipfile y Pipfile.lock)
+COPY Pipfile Pipfile.lock /opt/app/
+
+# Creamos un entorno virtual
 RUN python3 -m venv /opt/app/venv
 
-# Instalamos dependencias de Python usando pipenv
-RUN /opt/app/venv/bin/pip install pipenv
+# Instalamos dependencias con pipenv
 RUN /opt/app/venv/bin/pipenv install --deploy --ignore-pipfile
 
-# Etapa final (production stage)
-FROM python:3.10-slim
-
-WORKDIR /opt/app
-
-# Copiamos el entorno virtual de la etapa anterior
-COPY --from=build /opt/app/venv /venv
+# Etapa final (producción)
+FROM node:16
 
 # Copiamos los archivos del proyecto
-COPY . /app/
+COPY . /opt/app/
 
-# Exponer el puerto que usarás para Gunicorn
-EXPOSE 5000
+# Copiamos el entorno virtual de la etapa de construcción
+COPY --from=build /opt/app/venv /venv
+
+# Establecemos el directorio de trabajo
+WORKDIR /opt/app
+
+# Aseguramos que el entorno virtual esté disponible en el PATH
+ENV PATH="/opt/app/venv/bin:$PATH"
 
 # Ejecuta la aplicación
-CMD ["/venv/bin/pipenv", "run", "upgrade"]
+CMD ["pipenv", "run", "upgrade"]
