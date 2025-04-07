@@ -18,6 +18,12 @@ RUN pip3 install gunicorn
 # Etapa final: Preparar la imagen con los archivos del entorno de Python
 FROM node:16
 
+# Instalamos Python y pip3 en la imagen final para poder usar gunicorn
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends python3 python3-pip \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
 # Copiamos los archivos de la etapa de construcción
 COPY --from=build /opt/app /opt/app
 
