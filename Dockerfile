@@ -1,42 +1,20 @@
-# Etapa de construcción
-FROM node:16 AS build
-
-# Deshabilitar la interfaz interactiva de debconf para evitar errores
-ENV DEBIAN_FRONTEND=noninteractive
+# Usamos una imagen base de Node.js
+FROM node:16
 
 # Instalamos dependencias de Python
-RUN apt update \
-    && apt install -y software-properties-common \
-    && add-apt-repository ppa:deadsnakes/ppa \
-    && apt update \
-    && apt install -y python3.10 python3-pip
-
-# Creamos el entorno virtual
-WORKDIR /opt/app
-RUN python3 -m venv /opt/app/venv
-
-# Instalamos pipenv en el entorno virtual
-RUN /opt/app/venv/bin/pip install pipenv
-
-# Instalamos las dependencias de Python desde el Pipfile
-COPY Pipfile Pipfile.lock /opt/app/
-RUN /opt/app/venv/bin/pipenv install --deploy --ignore-pipfile
-
-# Etapa de producción
-FROM node:16
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends python3.10 python3-pip \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Establecemos el directorio de trabajo
 WORKDIR /opt/app
 
-# Copiamos el entorno virtual de la etapa de construcción
+# Copiamos el entorno virtual creado en el contenedor de build
 COPY --from=build /opt/app/venv /venv
 
-# Aseguramos que el entorno virtual esté disponible en el PATH
+# Configuramos el entorno
 ENV PATH="/opt/app/venv/bin:$PATH"
 ENV NODE_ENV=container
 
-# Copiamos los archivos del proyecto
-COPY . /opt/app/
-
-# Ejecuta la aplicación (reemplaza esto según la forma en que ejecutas tu app)
-CMD ["pipenv", "run", "upgrade"]
+# Otros comandos de configuración que puedas necesitar...
