@@ -1,26 +1,32 @@
-FROM node:16
+# Usar una imagen base de Python 3.10
+FROM python:3.10-slim
 
-# Instalamos Python 3.10 y pip
+# Instalamos Node.js
 RUN apt update \
-    && apt install -y python3.10 python3-pip
-
-# Instalamos pipenv
-RUN pip install pipenv
+    && apt install -y nodejs npm
 
 # Establecemos el directorio de trabajo
 WORKDIR /opt/app
 
 # Copiamos los archivos del proyecto
-COPY . /opt/app/
+COPY . /app/
 
-# Instalamos las dependencias de pipenv desde el archivo Pipfile
-RUN pipenv install --dev
+# Instalamos dependencias de Node.js
+WORKDIR /app/src/front
+RUN npm install
 
-# Aseguramos que el entorno virtual de pipenv esté disponible en el PATH
-ENV PATH="/opt/app/.venv/bin:$PATH"
+# Instalamos pipenv
+RUN pip install pipenv
+
+# Instalamos las dependencias de Python
+WORKDIR /opt/app
+RUN pipenv install --deploy --ignore-pipfile
+
+# Exponer el puerto que usarás para Gunicorn
+EXPOSE 5000
 
 # Fase de release (si es necesario, copiamos otros archivos de configuración)
-# Aquí asumimos que el entorno de pipenv ya está listo y no se necesita copiar nada más
+COPY --from=build /opt/app/venv /venv 
 
-# Comando para correr la aplicación, que ahora utilizará pipenv con el entorno virtual
+# Ejecuta la aplicación
 CMD ["pipenv", "run", "upgrade"]
