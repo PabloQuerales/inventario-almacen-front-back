@@ -1,5 +1,5 @@
-# Usamos una imagen base de Node.js
-FROM node:16
+# Etapa de construcción: Crear el entorno con Python y Node.js
+FROM node:16 AS build
 
 # Instalamos dependencias de Python
 RUN apt-get update \
@@ -7,14 +7,26 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Establecemos el directorio de trabajo
+# Instalar dependencias de Node.js (si las tienes)
+WORKDIR /opt/app
+COPY . /opt/app
+RUN npm install  # o el comando que uses para instalar tus dependencias de Node.js
+
+# Etapa final: Preparar la imagen con los archivos del entorno de Python
+FROM node:16
+
+# Copiamos los archivos de la etapa de construcción
+COPY --from=build /opt/app /opt/app
+
+# Configuramos el directorio de trabajo
 WORKDIR /opt/app
 
-# Copiamos el entorno virtual creado en el contenedor de build
+# Copiamos el entorno virtual (si lo tienes)
+# Si no estás usando un entorno virtual, puedes omitir esta parte
 COPY --from=build /opt/app/venv /venv
 
-# Configuramos el entorno
-ENV PATH="/opt/app/venv/bin:$PATH"
+# Establecemos las variables de entorno
+ENV PATH="/venv/bin:$PATH"
 ENV NODE_ENV=container
 
 # Otros comandos de configuración que puedas necesitar...
