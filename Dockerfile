@@ -3,6 +3,9 @@ FROM node:16 AS build
 
 # Instalamos dependencias de Python
 RUN apt update \
+    && apt install -y software-properties-common \
+    && add-apt-repository ppa:deadsnakes/ppa \
+    && apt update \
     && apt install -y python3.10 python3-pip
 
 # Creamos el entorno virtual
