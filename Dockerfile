@@ -6,11 +6,13 @@ RUN apt update && apt install -y nodejs npm
 
 WORKDIR /opt/app
 COPY . /app/
-WORKDIR /app/src/front
-RUN npm install
 
-RUN pip install pipenv
-RUN pipenv install --deploy --ignore-pipfile
+# Creamos un entorno virtual y lo activamos
+RUN python3 -m venv /opt/app/venv
+
+# Instalamos dependencias de Python usando pipenv
+RUN /opt/app/venv/bin/pip install pipenv
+RUN /opt/app/venv/bin/pipenv install --deploy --ignore-pipfile
 
 # Etapa final (production stage)
 FROM python:3.10-slim
@@ -27,4 +29,4 @@ COPY . /app/
 EXPOSE 5000
 
 # Ejecuta la aplicación
-CMD ["pipenv", "run", "upgrade"]
+CMD ["/venv/bin/pipenv", "run", "upgrade"]
