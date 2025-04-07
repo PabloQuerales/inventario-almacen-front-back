@@ -21,12 +21,11 @@ COPY --from=build /opt/app /opt/app
 # Configuramos el directorio de trabajo
 WORKDIR /opt/app
 
-# Copiamos el entorno virtual (si lo tienes)
-# Si no estás usando un entorno virtual, puedes omitir esta parte
-COPY --from=build /opt/app/venv /venv
-
 # Establecemos las variables de entorno
-ENV PATH="/venv/bin:$PATH"
 ENV NODE_ENV=container
+
+# Si no estás usando un entorno virtual (venv), omite la siguiente línea
+# Si lo tienes, asegúrate de que se copie correctamente
+# COPY --from=build /opt/app/venv /venv
 
 # Otros comandos de configuración que puedas necesitar...
