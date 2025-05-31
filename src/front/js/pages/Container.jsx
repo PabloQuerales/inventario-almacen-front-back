@@ -30,7 +30,7 @@ export default function Container() {
 					onClick={() => {
 						navigate("/");
 					}}>
-					<i class="bi bi-house"></i>
+					<i className="bi bi-house"></i>
 				</button>
 			</div>
 			<Modal />
