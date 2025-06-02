@@ -58,3 +58,7 @@ def delete_item(store_id):
         return jsonify({"msg": "item delete"}), 200
     except:
         return jsonify({"msg": "internal server error"}), 500
+    
+@api.route("/ping")
+def ping():
+    return "pong", 200
