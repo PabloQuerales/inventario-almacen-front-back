@@ -21,6 +21,9 @@ Aplicación web **Full Stack** para llevar el control del inventario de alimento
 - 🔍 Visualización de productos por sección o tipo (categorías).
 - ✅ Interfaz intuitiva, pensada para el uso cotidiano.
 
+✅ LINK DEL REPOSITORIO EN RENDER ✅
+https://inventario-almacen-front-back-1.onrender.com/
+
 ## 🛠️ Instalación local
 
 ### 🔙 Backend
